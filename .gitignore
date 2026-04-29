@@ -1,0 +1,35 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Runtime files (generated at startup — should not be shared)
+sdm.db
+sdm.log
+*.log
+
+# Downloaded files (the downloads/ folder is kept via .gitkeep)
+downloads/*.bin
+downloads/*.zip
+downloads/*.dat
+downloads/*.exe
+downloads/*.iso
+downloads/*.mp4
+downloads/*.mp3
+downloads/*.pdf
+downloads/*.part*
+
+# Benchmark output
+benchmark_output/
+
+# IDE / OS
+.idea/
+.vscode/
+*.DS_Store
+Thumbs.db
