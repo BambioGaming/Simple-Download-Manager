@@ -40,19 +40,19 @@ Beyond raw speed, SDM is designed to be resilient. Downloads can be paused, resu
 
 The primary objectives of this project are:
 
-1. **Demonstrate HTTP Range Requests** — Use the `Range: bytes=start-end` HTTP header to download specific byte ranges of a file from a server that supports `Accept-Ranges: bytes`.
+1. **Demonstrate HTTP Range Requests** - Use the `Range: bytes=start-end` HTTP header to download specific byte ranges of a file from a server that supports `Accept-Ranges: bytes`.
 
-2. **Implement Parallel Downloading via Threads** — Use `concurrent.futures.ThreadPoolExecutor` to run multiple segment downloads concurrently, each in its own thread.
+2. **Implement Parallel Downloading via Threads** - Use `concurrent.futures.ThreadPoolExecutor` to run multiple segment downloads concurrently, each in its own thread.
 
-3. **Handle Errors and Retry** — Automatically retry failed segment downloads with exponential back-off, without retrying bytes that were already downloaded successfully.
+3. **Handle Errors and Retry** - Automatically retry failed segment downloads with exponential back-off, without retrying bytes that were already downloaded successfully.
 
-4. **Support Pause and Resume** — Allow users to pause an active download at any time; workers should stop cleanly and resume from the exact byte where they stopped.
+4. **Support Pause and Resume** - Allow users to pause an active download at any time; workers should stop cleanly and resume from the exact byte where they stopped.
 
-5. **Recover After Restart** — Persist enough state to SQLite that a download interrupted by a crash or restart can be resumed in the next session.
+5. **Recover After Restart** - Persist enough state to SQLite that a download interrupted by a crash or restart can be resumed in the next session.
 
-6. **Monitor Progress in Real Time** — Track download speed (bytes/second), progress percentage, and estimated time remaining (ETA), all updated every 500 milliseconds.
+6. **Monitor Progress in Real Time** - Track download speed (bytes/second), progress percentage, and estimated time remaining (ETA), all updated every 500 milliseconds.
 
-7. **Present a Clean Architecture** — Organise the code into seven well-defined layers so that each component can be understood, explained, and modified independently.
+7. **Present a Clean Architecture** - Organise the code into seven well-defined layers so that each component can be understood, explained, and modified independently.
 
 ---
 

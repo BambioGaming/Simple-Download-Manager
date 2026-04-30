@@ -1,4 +1,4 @@
-# SDM — Simple Download Manager
+# SDM - Simple Download Manager
 
 > A university Distributed Systems project demonstrating multithreading, HTTP Range requests,  
 > file segmentation, fault tolerance, and real-time progress monitoring.  
@@ -17,7 +17,7 @@
 
 ### Reliability
 - **Pause / Resume** mid-download using `threading.Event` (zero CPU while paused)
-- **Resume after restart** — interrupted downloads are restored from SQLite on the next launch
+- **Resume after restart** - interrupted downloads are restored from SQLite on the next launch
 - **Automatic retry** with exponential back-off (up to 3 retries per segment)
 - Graceful fallback to single-segment download for servers that don't support Range requests
 
@@ -49,7 +49,7 @@ graph TD
     SW["Segment Workers\nHTTP Range requests"]
     FA["File Assembler\nmerge .part files"]
     PM["Progress Monitor\nspeed · ETA · %"]
-    DB["Persistence\nSQLite — history + resume"]
+    DB["Persistence\nSQLite - history + resume"]
 
     UI -->|add/start/pause/resume/cancel| DM
     DM -->|create workers| TC
@@ -90,7 +90,7 @@ main thread  (Tkinter event loop)
 │  self.after(500ms)  ──► _poll_progress()  ──► get_progress() ──► update widgets
 │
 │  on_add_url()
-│    └─► manager.add_download()     [synchronous, fast — just a HEAD request]
+│    └─► manager.add_download()     [synchronous, fast - just a HEAD request]
 │    └─► manager.start_download()
 │              │
 │              └─► threading.Thread(target=_run_download, daemon=True)
@@ -116,7 +116,7 @@ Resume: manager.resume_download(id) → pause_event.set()
 ```
 
 `pause_event.wait()` is called after every chunk write. While paused, threads  
-consume zero CPU — they sleep inside the OS kernel waiting for the event.
+consume zero CPU - they sleep inside the OS kernel waiting for the event.
 
 ### Retry Mechanism
 
@@ -128,7 +128,7 @@ attempt 2 → fail → sleep 4 s
 attempt 3 → fail → segment marked FAILED → download marked FAILED
 ```
 
-Retries are **partial** — `actual_start = start_byte + downloaded`, so only  
+Retries are **partial** - `actual_start = start_byte + downloaded`, so only  
 the un-downloaded portion is re-requested, not the full segment.
 
 ---
@@ -180,14 +180,14 @@ pip install -r requirements.txt
 python main.py
 ```
 
-### CLI — single download
+### CLI - single download
 ```bash
 python main.py --cli --url https://example.com/file.zip
 python main.py --cli --url https://example.com/file.zip --segments 8
 python main.py --cli --url https://example.com/file.zip --output ./my_downloads
 ```
 
-### CLI — view history
+### CLI - view history
 ```bash
 python main.py list
 # or
@@ -216,14 +216,14 @@ python main.py --verbose
 
 2. **Pause / Resume**
    - Start a large download (e.g. 100 MB)
-   - Click **Pause** — speed drops to 0, status shows "paused"
-   - Click **Resume** — download continues from the same byte offset
+   - Click **Pause** - speed drops to 0, status shows "paused"
+   - Click **Resume** - download continues from the same byte offset
    - Verify `sdm.db` segments table shows updated `downloaded` column
 
 3. **Resume after restart**
    - Start a download, click **Pause**, then close the application
-   - Reopen `python main.py` — the paused download reappears
-   - Click **Resume** — download continues without re-downloading already-saved bytes
+   - Reopen `python main.py` - the paused download reappears
+   - Click **Resume** - download continues without re-downloading already-saved bytes
 
 4. **Cancel**
    - Start a download, click **Cancel**
@@ -235,7 +235,7 @@ python main.py --verbose
    - Compare the printed table: multi-threaded downloads should be significantly faster
 
 6. **History**
-   - Switch to the **History** tab — all past downloads are listed
+   - Switch to the **History** tab - all past downloads are listed
    - Click column headers to sort b0y name, status, or date
    - Use **Delete Selected** or **Clear All** to manage records
 
@@ -269,13 +269,13 @@ SDM/
 
 ---
 
-## CS404 — Distributed Systems Concepts Demonstrated
+## CS404 - Distributed Systems Concepts Demonstrated
 
 | Concept | Where |
 |---|---|
 | **Multithreading** | `ThreadPoolExecutor` in `thread_controller.py`; daemon coordinator thread per download |
 | **Thread synchronisation** | `threading.Event` (pause), `threading.Lock` (shared state), DB-level lock |
-| **HTTP Range requests** | `segment_worker.py` — `Range: bytes=start-end` header, 206 response handling |
+| **HTTP Range requests** | `segment_worker.py` - `Range: bytes=start-end` header, 206 response handling |
 | **Fault tolerance** | Segment retry with exponential back-off in `segment_worker.py` |
 | **State persistence** | SQLite stores byte offsets; `download_manager.restore_incomplete()` on startup |
 | **Progress monitoring** | Rolling-window speed, ETA in `progress_tracker.py` |
@@ -284,5 +284,5 @@ SDM/
 
 ---
 
-*CS404 Distributed Systems — Simple Download Manager (SDM)*  
+*CS404 Distributed Systems - Simple Download Manager (SDM)*  
 *Python 3.10+ · requests · sqlite3 · tkinter · threading*
